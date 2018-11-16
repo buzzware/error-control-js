@@ -23,7 +23,7 @@ class HttpErrors {
       return;
     this.allExceptions.push(aExceptionClass);
     if (aForCode)
-      this.exceptionsForCodes[aExceptionClass.STATUS] = aExceptionClass;
+      this.exceptionsForCodes[aExceptionClass.STATUS_CODE] = aExceptionClass;
   }
 
   static classForStatusCode(aStatusCode) {
@@ -163,8 +163,8 @@ function generateErrorClass(acc, desc, code) {
 	var name = errNameFromDesc(desc);
 
 	var errorClass = class extends StandardException {
-    constructor(message=null,status=null,inner=null) {
-      super(message || prototype.MESSAGE,status || prototype.STATUS_CODE,inner);
+    constructor(message=null,statusCode=null,inner=null) {
+      super(message || prototype.MESSAGE,statusCode || prototype.STATUS_CODE,inner);
     }
 	};
 
@@ -176,7 +176,6 @@ function generateErrorClass(acc, desc, code) {
 	// 		return _errorClass;
 	// }(StandardException));
 	//
-	// errorClass.name = name;
 
 	Object.defineProperty(errorClass, "name", { value: name });
 

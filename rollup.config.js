@@ -4,18 +4,18 @@ import pkg from './package.json';
 
 export default [
 
-	{
-		input: 'src/main.js',
-		output: {
-			name: 'ErrorControl',
-			file: pkg.browser,
-			format: 'umd'						// browser-friendly UMD build
-		},
-		plugins: [
-			resolve(), // so Rollup can find `ms`
-			commonjs() // so Rollup can convert `ms` to an ES module
-		]
-	},
+	// {
+	// 	input: 'src/main.js',
+	// 	output: {
+	// 		name: 'ErrorControl',
+	// 		file: pkg.browser,
+	// 		format: 'umd'						// browser-friendly UMD build
+	// 	},
+	// 	plugins: [
+	// 		resolve(), // so Rollup can find `ms`
+	// 		commonjs() // so Rollup can convert `ms` to an ES module
+	// 	]
+	// },
 
 	// CommonJS (for Node) and ES module (for bundlers) build.
 	// (We could have three entries in the configuration array
@@ -35,18 +35,18 @@ export default [
 
 
 
-	{
-		input: 'src/HttpErrors.js',
-		output: {
-			name: 'HttpErrors',
-			file: "dist/HttpErrors.umd.js",
-			format: 'umd'						// browser-friendly UMD build
-		},
-		plugins: [
-			resolve(), // so Rollup can find `ms`
-			commonjs() // so Rollup can convert `ms` to an ES module
-		]
-	},
+	// {
+	// 	input: 'src/HttpErrors.js',
+	// 	output: {
+	// 		name: 'HttpErrors',
+	// 		file: "dist/HttpErrors.umd.js",
+	// 		format: 'umd'						// browser-friendly UMD build
+	// 	},
+	// 	plugins: [
+	// 		resolve(), // so Rollup can find `ms`
+	// 		commonjs() // so Rollup can convert `ms` to an ES module
+	// 	]
+	// },
 
 	// CommonJS (for Node) and ES module (for bundlers) build.
 	// (We could have three entries in the configuration array
