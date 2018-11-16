@@ -173,6 +173,32 @@ ExtendableError.prototype = objectCreate(Error.prototype, {
   }
 });
 
+
+// ExtendableError.extend = function(aName) {
+//
+//   var cls = this;
+//   var result = function() {
+//     cls.call()
+//   }
+//
+// };
+//
+//
+//
+// // Rectangle - subclass
+// function Rectangle() {
+//   Shape.call(this); // call super constructor.
+// }
+//
+// // subclass extends superclass
+// Rectangle.prototype = Object.create(Shape.prototype);
+// Rectangle.prototype.constructor = Rectangle;
+//
+// var rect = new Rectangle();
+
+
+
+
 class StandardException extends ExtendableError {
 
   constructor(message=null,statusCode=null,inner=null,data=null) {

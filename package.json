@@ -6,6 +6,8 @@
   "browser": "dist/error-control.umd.js",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
     "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.0.0"
