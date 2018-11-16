@@ -2,18 +2,16 @@ import StandardException from './StandardException';
 
 // This is taken from TypeScript compiler output, because it works quite reliably.
 // There are various other methods though, so use whatever you like, if you have to use ES5.
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
+// var __extends = (this && this.__extends) || (function () {
+//     var extendStatics = Object.setPrototypeOf ||
+//         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+//         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+//     return function (d, b) {
+//         extendStatics(d, b);
+//         function __() { this.constructor = d; }
+//         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+//     };
+// })();
 
 
 class HttpErrors {
@@ -128,18 +126,6 @@ function errNameFromDesc(desc) {
 			normalizedPiece = normalizedPiece.charAt(0).toUpperCase() + normalizedPiece.substr(1);
 			name += normalizedPiece;
 		}
-
-    //assert.string(desc, 'desc');
-    // takes an error description, split on spaces, camel case it correctly,
-    // then append 'Error' at the end of it.
-    // e.g., the passed in description is 'Internal Server Error'
-    //       the output is 'InternalServerError'
-    // var pieces = desc.split(/\s+/);
-    // var name = _.reduce(pieces, function(acc, piece) {
-    //     // lowercase all, then capitalize it.
-    //     var normalizedPiece = _.capitalize(piece.toLowerCase());
-    //     return acc + normalizedPiece;
-    // }, '');
 
     // strip all non word characters
     name = name.replace(/\W+/g, '');
