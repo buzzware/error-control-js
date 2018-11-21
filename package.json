@@ -1,6 +1,13 @@
 {
   "name": "error-control",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "license": "MIT",
+  "homepage": "https://github.com/buzzware/error-control-js",
+  "author": {
+    "name": "Gary McGhee",
+    "email": "contact@buzzware.com.au",
+    "url": "http://buzzware.com.au"
+  },
   "main": "dist/cjs/ErrorControl.js",
   "module": "dist/es/ErrorControl.js",
   "browser": "dist/umd/ErrorControl.js",
