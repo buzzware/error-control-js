@@ -5,7 +5,7 @@ export default {
 	report(aOptions) {
 		let result = null;
 		for (let r of this.reporters) {
-			let keepLooping = r(aOptions);
+			let keepLooping = r.report(aOptions);
 			if (keepLooping===false)
 				break;
 		}

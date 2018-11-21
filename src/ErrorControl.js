@@ -1,3 +1,9 @@
+import { StandardException, UserError, FrontEndError } from './StandardException';
+import ErrorControlFiltersMixin from "./ErrorControlFiltersMixin";
+import ErrorControlMakeMixin from "./ErrorControlMakeMixin";
+import ErrorControlReportMixin from "./ErrorControlReportMixin";
+import ErrorControlGuardMixin from "./ErrorControlGuardMixin";
+
 export default class ErrorControl {
 
 	constructor() {
@@ -29,3 +35,11 @@ export default class ErrorControl {
 		return this.default.report(...args);
 	}
 }
+
+Object.assign(ErrorControl.prototype, ErrorControlFiltersMixin);
+Object.assign(ErrorControl.prototype, ErrorControlMakeMixin);
+Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
+Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
+
+export { ErrorControl, StandardException, UserError, FrontEndError }
+

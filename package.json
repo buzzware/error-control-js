@@ -1,9 +1,9 @@
 {
   "name": "error-control",
-  "version": "0.0.1",
-  "main": "dist/error-control.cjs.js",
-  "module": "dist/error-control.esm.js",
-  "browser": "dist/error-control.umd.js",
+  "version": "0.1.0",
+  "main": "dist/cjs/ErrorControl.js",
+  "module": "dist/es/ErrorControl.js",
+  "browser": "dist/umd/ErrorControl.js",
   "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",

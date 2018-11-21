@@ -4,7 +4,7 @@ export default {
 	filter(aException) {
 		let result = aException;
 		for (let f of this.filters) {
-			result = f(result);
+			result = f.filter(result);
 		}
 		return result;
 	},

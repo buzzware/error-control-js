@@ -23,30 +23,23 @@ export default [
 	// builds from a single configuration where possible, using
 	// an array for the `output` option, where we can specify 
 	// `file` and `format` for each target)
+
 	{
-		input: 'src/main.js',
-		//external: ['ms'],
+		input: 'src/StandardException.js',
+		output: [
+			{ file: 'dist/cjs/StandardException.js', format: 'cjs' },
+			{ file: 'dist/es/StandardException.js', format: 'es' }
+		]
+	},
+
+	{
+		input: 'src/ErrorControl.js',
+		external: ['./StandardException'],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }
 		]
 	},
-
-
-
-
-	// {
-	// 	input: 'src/HttpErrors.js',
-	// 	output: {
-	// 		name: 'HttpErrors',
-	// 		file: "dist/HttpErrors.umd.js",
-	// 		format: 'umd'						// browser-friendly UMD build
-	// 	},
-	// 	plugins: [
-	// 		resolve(), // so Rollup can find `ms`
-	// 		commonjs() // so Rollup can convert `ms` to an ES module
-	// 	]
-	// },
 
 	// CommonJS (for Node) and ES module (for bundlers) build.
 	// (We could have three entries in the configuration array
@@ -56,10 +49,28 @@ export default [
 	// `file` and `format` for each target)
 	{
 		input: 'src/HttpErrors.js',
-		//external: ['ms'],
+		external: ['./StandardException'],
 		output: [
-			{ file: 'dist/HttpErrors.cjs.js', format: 'cjs' },
-			{ file: 'dist/HttpErrors.esm.js', format: 'es' }
+			{ file: 'dist/cjs/HttpErrors.js', format: 'cjs' },
+			{ file: 'dist/es/HttpErrors.js', format: 'es' }
+		]
+	},
+
+	{
+		input: 'src/FrontEndErrors.js',
+		external: ['./StandardException'],
+		output: [
+			{ file: 'dist/cjs/FrontEndErrors.js', format: 'cjs' },
+			{ file: 'dist/es/FrontEndErrors.js', format: 'es' }
+		]
+	},
+
+	{
+		input: 'src/UserErrors.js',
+		external: ['./StandardException'],
+		output: [
+			{ file: 'dist/cjs/UserErrors.js', format: 'cjs' },
+			{ file: 'dist/es/UserErrors.js', format: 'es' }
 		]
 	}
 ];

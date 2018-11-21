@@ -1,4 +1,8 @@
-import StandardException from './StandardException';
+'use strict';
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var StandardException = _interopDefault(require('./StandardException'));
 
 // This is taken from TypeScript compiler output, because it works quite reliably.
 // There are various other methods though, so use whatever you like, if you have to use ES5.
@@ -103,18 +107,6 @@ HttpErrors.STATUS_CODES = {
   510: ['Not Extended'],               // RFC 2774
   511: ['Network Authentication Required'] // RFC 6585
 };
-
-// from https://github.com/restify/errors
-
-function errNameFromCode(code) {
-
-    //assert.number(code, 'code');
-
-    // attempt to retrieve status code description, if not available,
-    // fallback on 500.
-    var errorDesc = HttpErrors.STATUS_CODES[code] || HttpErrors.STATUS_CODES[500];
-    return errNameFromDesc(errorDesc);
-}
 
 function errNameFromDesc(desc) {
 
@@ -228,4 +220,4 @@ for (let e in HttpErrors.STATUS_CODES) {
 	generateErrorClass(HttpErrors,err[0],e,err[1] || err[0]);
 }
 
-export default HttpErrors;
+module.exports = HttpErrors;

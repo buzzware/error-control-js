@@ -8,7 +8,7 @@ export default {
 	make(aProperties) {
 		let result = null;
 		for (let f of this.factories) {
-			result = f(aProperties);
+			result = f.make(aProperties);
 			if (result)
 				break;
 		}

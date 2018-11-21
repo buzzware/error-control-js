@@ -104,18 +104,6 @@ HttpErrors.STATUS_CODES = {
   511: ['Network Authentication Required'] // RFC 6585
 };
 
-// from https://github.com/restify/errors
-
-function errNameFromCode(code) {
-
-    //assert.number(code, 'code');
-
-    // attempt to retrieve status code description, if not available,
-    // fallback on 500.
-    var errorDesc = HttpErrors.STATUS_CODES[code] || HttpErrors.STATUS_CODES[500];
-    return errNameFromDesc(errorDesc);
-}
-
 function errNameFromDesc(desc) {
 
     var pieces = desc.split(/\s+/);

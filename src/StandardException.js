@@ -185,8 +185,13 @@ class StandardException extends ExtendableError {
 StandardException.MESSAGE = 'An error occurred that could not be identified';
 StandardException.STATUS_CODE = 500;
 
-export {
-	ExtendableError as ExtendableError,
-	StandardException as StandardException
-};
+// errors caused by bad user input
+class UserError extends StandardException {
+}
+
+// errors specific to the front end
+class FrontEndError extends StandardException {
+}
+
+export { StandardException, UserError, FrontEndError }
 export default StandardException;
