@@ -4,11 +4,13 @@ export { StandardException, UserError, FrontEndError } from './StandardException
 // pluggable exception filter framework
 var ErrorControlFiltersMixin = {
 
-	filter(aException) {
+	filter(aException,aPostFunction=null) {
 		let result = aException;
 		for (let f of this.filters) {
 			result = f.filter(result);
 		}
+		if (result && aPostFunction)
+			result = aPostFunction(result);
 		return result;
 	},
 
@@ -96,33 +98,25 @@ var ErrorControlGuardMixin = {
 	 )
 	*/
 
-	guard(aFunction,aPreFunction=null,aPostFunction=null) {
+	guard(aFunction,aPostFunction=null) {
 		try {
 			return aFunction();
 		} catch(e) {
 			let filtered_e = e;
-			if (filtered_e && aPreFunction)
-				filtered_e = aPreFunction(filtered_e);
 			if (filtered_e)
-				filtered_e = this.filter(filtered_e);
-			if (filtered_e && aPostFunction)
-				filtered_e = aPostFunction(filtered_e);
+				filtered_e = this.filter(filtered_e,aPostFunction);
 			if (filtered_e)
 				throw filtered_e;
 		}
 	},
 
-	async guardAsync(aAsyncFunction,aPreFunction=null,aPostFunction=null) {
+	async guardAsync(aAsyncFunction,aPostFunction=null) {
 		try {
 			return await aAsyncFunction();
 		} catch(e) {
 			let filtered_e = e;
-			if (filtered_e && aPreFunction)
-				filtered_e = aPreFunction(filtered_e);
 			if (filtered_e)
-				filtered_e = this.filter(filtered_e);
-			if (filtered_e && aPostFunction)
-				filtered_e = aPostFunction(filtered_e);
+				filtered_e = this.filter(filtered_e,aPostFunction);
 			if (filtered_e)
 				throw filtered_e;
 		}

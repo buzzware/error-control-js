@@ -1,11 +1,13 @@
 // pluggable exception filter framework
 export default {
 
-	filter(aException) {
+	filter(aException,aPostFunction=null) {
 		let result = aException;
 		for (let f of this.filters) {
 			result = f.filter(result);
 		}
+		if (result && aPostFunction)
+			result = aPostFunction(result);
 		return result;
 	},
 
