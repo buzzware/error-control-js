@@ -142,7 +142,7 @@ function generateErrorClass(acc, desc, code, message) {
 
 	var errorClass = class extends StandardException {
     constructor(message=null,statusCode=null,inner=null) {
-      super(message || prototype.MESSAGE,statusCode || prototype.STATUS_CODE,inner);
+      super(message || errorClass.MESSAGE,statusCode || errorClass.STATUS_CODE,inner);
     }
 	};
 
