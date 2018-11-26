@@ -138,13 +138,7 @@ function errNameFromDesc(desc) {
 }
 
 
-function generateErrorClass(acc, desc, code, message) {
-
-	var parsedCode = parseInt(code, 10);
-
-	if (parsedCode < 400)
-		return acc;
-
+function generateErrorClass(desc, code, message) {
 
 	var name = errNameFromDesc(desc);
 
@@ -166,7 +160,7 @@ function generateErrorClass(acc, desc, code, message) {
 	Object.defineProperty(errorClass, "name", { value: name });
 
 	errorClass.MESSAGE = message;
-  errorClass.STATUS_CODE = parsedCode;
+  errorClass.STATUS_CODE = code;
   HttpErrors.register(errorClass,true);
 
 	// this is a dynamic constructor for an error message.
@@ -207,7 +201,7 @@ function generateErrorClass(acc, desc, code, message) {
 	 * will handle overriding at the instance level.
 	 * @type {Number}
 	 */
-	errorClass.prototype.statusCode = parsedCode;
+	errorClass.prototype.statusCode = code;
 
 	/**
 	 * default code is the error name
@@ -215,17 +209,27 @@ function generateErrorClass(acc, desc, code, message) {
 	 */
 	errorClass.prototype.code = name.replace(new RegExp('Error$'), '');
 
-	acc[name] = errorClass;
-
-	return acc;
+	return errorClass;
 }
 
 
 HttpErrors.register(StandardException);
 
+let errors = {};
+
 for (let e in HttpErrors.STATUS_CODES) {
 	let err = HttpErrors.STATUS_CODES[e];
-	generateErrorClass(HttpErrors,err[0],e,err[1] || err[0]);
+
+	var code = parseInt(e, 10);
+	if (code < 400)
+		continue;
+
+	let ec = generateErrorClass(err[0],code,err[1] || err[0]);
+	errors[ec.name] = ec;
 }
 
 export default HttpErrors;
+if (typeof(__webpack_exports__)=='object')
+	Object.assign(__webpack_exports__,errors);
+
+console.log('end');
