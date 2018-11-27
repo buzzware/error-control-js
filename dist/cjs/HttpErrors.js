@@ -221,6 +221,8 @@ for (let e in HttpErrors.STATUS_CODES) {
 }
 if (typeof(__webpack_exports__)=='object')
 	Object.assign(__webpack_exports__,errors);
+else
+	Object.assign(HttpErrors,errors);
 
 console.log('end');
 
