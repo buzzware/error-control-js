@@ -4,6 +4,7 @@ import ErrorControlMakeMixin from "./ErrorControlMakeMixin";
 import ErrorControlReportMixin from "./ErrorControlReportMixin";
 import ErrorControlGuardMixin from "./ErrorControlGuardMixin";
 
+
 export default class ErrorControl {
 
 	constructor() {
@@ -41,5 +42,7 @@ Object.assign(ErrorControl.prototype, ErrorControlMakeMixin);
 Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
 Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
 
+export * from "./HttpErrors";
+export * from "./UserErrors";
 export { ErrorControl, StandardException, UserError, FrontEndError }
 
