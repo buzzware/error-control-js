@@ -354,6 +354,10 @@ class ValidationFailed extends UserError {
 ValidationFailed.MESSAGE = 'The requested operation was not successful due to validation errors.';
 ValidationFailed.STATUS_CODE = 422;
 
+var UserErrors = /*#__PURE__*/Object.freeze({
+	ValidationFailed: ValidationFailed
+});
+
 class ErrorControl {
 
 	constructor() {
@@ -392,4 +396,4 @@ Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
 Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
 
 export default ErrorControl;
-export { ErrorControl, ValidationFailed };
+export { ErrorControl, UserErrors, HttpErrors };

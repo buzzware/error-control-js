@@ -5,7 +5,7 @@ import ErrorControlReportMixin from "./ErrorControlReportMixin";
 import ErrorControlGuardMixin from "./ErrorControlGuardMixin";
 
 import HttpErrors from "./HttpErrors";
-import UserErrors from "./UserErrors";
+import * as UserErrors from "./UserErrors";
 
 export default class ErrorControl {
 

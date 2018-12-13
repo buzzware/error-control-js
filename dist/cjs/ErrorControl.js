@@ -360,6 +360,10 @@ class ValidationFailed extends StandardException.UserError {
 ValidationFailed.MESSAGE = 'The requested operation was not successful due to validation errors.';
 ValidationFailed.STATUS_CODE = 422;
 
+var UserErrors = /*#__PURE__*/Object.freeze({
+	ValidationFailed: ValidationFailed
+});
+
 class ErrorControl {
 
 	constructor() {
@@ -402,4 +406,5 @@ exports.UserError = StandardException.UserError;
 exports.FrontEndError = StandardException.FrontEndError;
 exports.default = ErrorControl;
 exports.ErrorControl = ErrorControl;
-exports.ValidationFailed = ValidationFailed;
+exports.UserErrors = UserErrors;
+exports.HttpErrors = HttpErrors;
