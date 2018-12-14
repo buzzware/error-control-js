@@ -596,6 +596,9 @@ var UserErrors = /*#__PURE__*/Object.freeze({
   ValidationFailed: ValidationFailed
 });
 
+var ErrorControlPackage = { ErrorControl, StandardException, UserError, FrontEndError, UserErrors, HttpErrors };
+
+exports.default = ErrorControlPackage;
 exports.ErrorControl = ErrorControl;
 exports.StandardException = StandardException;
 exports.UserError = UserError;
