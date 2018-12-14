@@ -24,16 +24,24 @@ export default [
 	// an array for the `output` option, where we can specify 
 	// `file` and `format` for each target)
 	//
-	// {
-	// 	input: 'src/StandardException.js',
-	// 	output: [
-	// 		{ file: 'dist/cjs/StandardException.js', format: 'cjs' },
-	// 		{ file: 'dist/es/StandardException.js', format: 'es' }
-	// 	]
-	// },
+	{
+		input: 'src/StandardException.js',
+		output: [
+			{ file: 'dist/cjs/StandardException.js', format: 'cjs' },
+			{ file: 'dist/es/StandardException.js', format: 'es' }
+		]
+	},
 
 	{
 		input: 'src/ErrorControl.js',
+		output: [
+			{ file: 'dist/cjs/ErrorControl.js', format: 'cjs' },
+			{ file: 'dist/es/ErrorControl.js', format: 'es' }
+		]
+	},
+
+	{
+		input: 'src/ErrorControlPackage.js',
 		external: [],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
@@ -47,14 +55,14 @@ export default [
 	// builds from a single configuration where possible, using
 	// an array for the `output` option, where we can specify
 	// `file` and `format` for each target)
-	// {
-	// 	input: 'src/HttpErrors.js',
-	// 	external: ['./StandardException'],
-	// 	output: [
-	// 		{ file: 'dist/cjs/HttpErrors.js', format: 'cjs' },
-	// 		{ file: 'dist/es/HttpErrors.js', format: 'es' }
-	// 	]
-	// },
+	{
+		input: 'src/HttpErrors.js',
+		external: ['./StandardException'],
+		output: [
+			{ file: 'dist/cjs/HttpErrors.js', format: 'cjs' },
+			{ file: 'dist/es/HttpErrors.js', format: 'es' }
+		]
+	},
 
 	// {
 	// 	input: 'src/FrontEndErrors.js',
@@ -65,12 +73,12 @@ export default [
 	// 	]
 	// },
 
-	// {
-	// 	input: 'src/UserErrors.js',
-	// 	external: ['./StandardException'],
-	// 	output: [
-	// 		{ file: 'dist/cjs/UserErrors.js', format: 'cjs' },
-	// 		{ file: 'dist/es/UserErrors.js', format: 'es' }
-	// 	]
-	// }
+	{
+		input: 'src/UserErrors.js',
+		external: ['./StandardException'],
+		output: [
+			{ file: 'dist/cjs/UserErrors.js', format: 'cjs' },
+			{ file: 'dist/es/UserErrors.js', format: 'es' }
+		]
+	}
 ];
