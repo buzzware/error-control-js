@@ -1,6 +1,6 @@
 {
   "name": "error-control",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "homepage": "https://github.com/buzzware/error-control-js",
   "author": {
@@ -14,7 +14,6 @@
   },
   "main": "dist/cjs/ErrorControlPackage.js",
   "module": "dist/es/ErrorControlPackage.js",
-  "browser": "dist/umd/ErrorControlPackage.js",
   "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",
