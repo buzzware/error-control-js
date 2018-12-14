@@ -34,7 +34,7 @@ export default [
 
 	{
 		input: 'src/ErrorControl.js',
-		external: ['./StandardException'],
+		external: [],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }
