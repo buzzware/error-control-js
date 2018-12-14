@@ -15,6 +15,8 @@ The features are :
     to external code, and any exceptions will be filtered and rethrown or smothered.
     * an abstract reporting framework for eg. logging and reporting errors to an error reporting service
 
+The default import is ErrorControlPackage which includes everything, or you can import separate files (see the dist folder)
+
 ## License
 
 [MIT](LICENSE).
