@@ -538,10 +538,6 @@ for (let e in HttpErrors.STATUS_CODES) {
 
 console.log('end');
 
-var HttpErrors$1 = /*#__PURE__*/Object.freeze({
-  default: HttpErrors
-});
-
 class ValidationFailed extends UserError {
 	constructor(aMessage=null,statusCode=null,inner=null,data=[]) {
 		super(aMessage || ValidationFailed.MESSAGE,statusCode || ValidationFailed.STATUS_CODE,inner,data);
@@ -592,4 +588,4 @@ Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
 Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
 
 export default ErrorControl;
-export { ErrorControl, StandardException, UserError, FrontEndError, UserErrors, HttpErrors$1 as HttpErrors };
+export { ErrorControl, StandardException, UserError, FrontEndError, UserErrors, HttpErrors };

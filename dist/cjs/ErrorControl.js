@@ -542,10 +542,6 @@ for (let e in HttpErrors.STATUS_CODES) {
 
 console.log('end');
 
-var HttpErrors$1 = /*#__PURE__*/Object.freeze({
-  default: HttpErrors
-});
-
 class ValidationFailed extends UserError {
 	constructor(aMessage=null,statusCode=null,inner=null,data=[]) {
 		super(aMessage || ValidationFailed.MESSAGE,statusCode || ValidationFailed.STATUS_CODE,inner,data);
@@ -601,4 +597,4 @@ exports.StandardException = StandardException;
 exports.UserError = UserError;
 exports.FrontEndError = FrontEndError;
 exports.UserErrors = UserErrors;
-exports.HttpErrors = HttpErrors$1;
+exports.HttpErrors = HttpErrors;

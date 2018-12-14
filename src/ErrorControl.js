@@ -4,7 +4,7 @@ import ErrorControlMakeMixin from "./ErrorControlMakeMixin";
 import ErrorControlReportMixin from "./ErrorControlReportMixin";
 import ErrorControlGuardMixin from "./ErrorControlGuardMixin";
 
-import * as HttpErrors from "./HttpErrors";
+import HttpErrors from "./HttpErrors";
 import * as UserErrors from "./UserErrors";
 
 export default class ErrorControl {
