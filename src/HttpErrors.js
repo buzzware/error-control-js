@@ -229,9 +229,9 @@ for (let e in HttpErrors.STATUS_CODES) {
 }
 
 export default HttpErrors;
-if (typeof(__webpack_exports__)=='object')
-	Object.assign(__webpack_exports__,errors);
-else
+// if (typeof(__webpack_exports__)=='object')
+// 	Object.assign(__webpack_exports__,errors);
+// else
 	Object.assign(HttpErrors,errors);
 
 console.log('end');

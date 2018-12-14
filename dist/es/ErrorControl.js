@@ -531,9 +531,9 @@ for (let e in HttpErrors.STATUS_CODES) {
 	let ec = generateErrorClass(err[0],code,err[1] || err[0]);
 	errors[ec.name] = ec;
 }
-if (typeof(__webpack_exports__)=='object')
-	Object.assign(__webpack_exports__,errors);
-else
+// if (typeof(__webpack_exports__)=='object')
+// 	Object.assign(__webpack_exports__,errors);
+// else
 	Object.assign(HttpErrors,errors);
 
 console.log('end');
