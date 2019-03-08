@@ -121,6 +121,32 @@ var ErrorControlGuardMixin = {
 
 };
 
+var ErrorControlHandleMixin = {
+
+	// pluggable handling
+
+	handle(aOptions) {
+		for (let h of this.handlers) {
+			let keepLooping = h.handle(aOptions);
+			if (keepLooping===false)
+				break;
+		}
+	},
+
+	appendHandler(aHandler) {
+		if (this.handlers.includes(aHandler))
+			return;
+		this.handlers.push(aHandler);
+	},
+
+	prependHandler(aHandler) {
+		if (this.handlers.includes(aHandler))
+			return;
+		this.handlers.unshift(aHandler);
+	}
+
+};
+
 // import { StandardException, UserError, FrontEndError } from './StandardException';
 
 // import HttpErrors from "./HttpErrors";
@@ -132,6 +158,7 @@ class ErrorControl {
 		this.filters = [];
 		this.factories = [];
 		this.reporters = [];
+		this.handlers = [];
 	}
 
 	static get default() {
@@ -139,6 +166,14 @@ class ErrorControl {
 			return this._default;
 		this._default = new ErrorControl();
 		return this._default;
+	}
+
+	manage(aError) {
+		let error = this.filter(aError);
+		if (!error)
+			return;
+		this.report(error);
+		this.handle(error);
 	}
 
 	static filter(...args) {
@@ -156,12 +191,17 @@ class ErrorControl {
 	static report(...args) {
 		return this.default.report(...args);
 	}
+
+	static handle(...args) {
+		return this.default.handle(...args);
+	}
 }
 
 Object.assign(ErrorControl.prototype, ErrorControlFiltersMixin);
 Object.assign(ErrorControl.prototype, ErrorControlMakeMixin);
 Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
 Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
+Object.assign(ErrorControl.prototype, ErrorControlHandleMixin);
 
 export default ErrorControl;
 export { ErrorControl };
