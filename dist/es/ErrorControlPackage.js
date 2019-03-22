@@ -172,6 +172,16 @@ ExtendableError.prototype = objectCreate(Error.prototype, {
 
 class StandardException extends ExtendableError {
 
+  static throwIf(condition,...args) {
+    if (condition)
+      throw new this(...args);
+  }
+
+  static throwUnless(condition,...args) {
+    if (!condition)
+      throw new this(...args);
+  }
+
   constructor(message=null,statusCode=null,inner=null,data=null) {
     super(message || StandardException.MESSAGE);
     this.name = this.constructor.name;
@@ -184,6 +194,7 @@ class StandardException extends ExtendableError {
 }
 StandardException.MESSAGE = 'An error occurred that could not be identified';
 StandardException.STATUS_CODE = 500;
+
 
 // errors caused by bad user input
 class UserError extends StandardException {
@@ -366,9 +377,10 @@ class ErrorControl {
 	manage(aError) {
 		let error = this.filter(aError);
 		if (!error)
-			return;
+			return error;
 		this.report(error);
 		this.handle(error);
+		return error;
 	}
 
 	static filter(...args) {
@@ -389,6 +401,10 @@ class ErrorControl {
 
 	static handle(...args) {
 		return this.default.handle(...args);
+	}
+
+	static manage(...args) {
+		return this.default.manage(...args);
 	}
 }
 

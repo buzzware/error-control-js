@@ -27,9 +27,10 @@ export default class ErrorControl {
 	manage(aError) {
 		let error = this.filter(aError);
 		if (!error)
-			return;
+			return error;
 		this.report(error);
 		this.handle(error);
+		return error;
 	}
 
 	static filter(...args) {
@@ -50,6 +51,10 @@ export default class ErrorControl {
 
 	static handle(...args) {
 		return this.default.handle(...args);
+	}
+
+	static manage(...args) {
+		return this.default.manage(...args);
 	}
 }
 
