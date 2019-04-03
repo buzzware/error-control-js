@@ -315,6 +315,8 @@ var ErrorControlGuardMixin = {
 
 	/*
 
+	DEPRECATED - use filter instead
+
 	Guard filters and usually rethrows StandardErrors.
 
 	 use this like :
