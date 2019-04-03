@@ -207,14 +207,37 @@ class FrontEndError extends StandardException {
 // pluggable exception filter framework
 var ErrorControlFiltersMixin = {
 
-	filter(aException,aPostFunction=null) {
-		let result = aException;
-		for (let f of this.filters) {
-			result = f.filter(result);
+	filter(aFunctionOrException,aPostFunction=null) {
+		if (typeof(aFunctionOrException)=='function') {
+			try {
+				let result = aFunctionOrException();
+				if (this.isPromise(result)) {
+					return result.catch((e) => {
+						let filtered_e = e;
+						if (filtered_e)
+							filtered_e = this.filter(filtered_e,aPostFunction);
+						if (filtered_e)
+							throw filtered_e;
+					});
+				} else {
+					return result;
+				}
+			} catch(e) {
+				let filtered_e = e;
+				if (filtered_e)
+					filtered_e = this.filter(filtered_e,aPostFunction);
+				if (filtered_e)
+					throw filtered_e;
+			}
+		} else {
+			let result = aFunctionOrException;
+			for (let f of this.filters) {
+				result = f.filter(result);
+			}
+			if (result && aPostFunction)
+				result = aPostFunction(result);
+			return result;
 		}
-		if (result && aPostFunction)
-			result = aPostFunction(result);
-		return result;
 	},
 
 	appendFilter(aFilter) {
@@ -291,6 +314,9 @@ var ErrorControlReportMixin = {
 var ErrorControlGuardMixin = {
 
 	/*
+
+	Guard filters and usually rethrows StandardErrors.
+
 	 use this like :
 
 	 ErrorControl.guard(
@@ -322,6 +348,54 @@ var ErrorControlGuardMixin = {
 				filtered_e = this.filter(filtered_e,aPostFunction);
 			if (filtered_e)
 				throw filtered_e;
+		}
+	}
+
+};
+
+var ErrorControlContainMixin = {
+
+	/*
+
+	Contain forces any errors thrown into the manage method, and should never leak exceptions.
+
+	 use this like :
+
+	 ErrorControl.contain(
+		 ()=>{	// async or not
+				// do stuff that may throw an exception
+		 },
+		 (e)=> e instanceof SwallowableError ? null : e
+	 )
+
+	 Ember example :
+
+		// exceptions in async actions get swallowed by Ember 3.4
+		// contain ensures they get handled
+		actions: {
+        doSomething() {  // should never have async keyword - will be what contain returns
+            return ErrorControl.contain(async () => {   // can be async or not
+                throw new Error('Bang');
+            });
+        }
+    }
+
+
+	*/
+
+	// handles normal and async functions
+	contain(aFunction,aPostFunction=null) {
+		try {
+			let result = aFunction();
+			if (this.isPromise(result)) {
+				return result.catch((e) => {
+					return this.manage(e, aPostFunction);
+				});
+			} else {
+				return result;
+			}
+		} catch(e) {
+			return this.manage(e, aPostFunction);
 		}
 	}
 
@@ -374,8 +448,12 @@ class ErrorControl {
 		return this._default;
 	}
 
-	manage(aError) {
-		let error = this.filter(aError);
+	isPromise(obj) {
+		return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+	}
+
+	manage(aError,aPostFunction=null) {
+		let error = this.filter(aError,aPostFunction);
 		if (!error)
 			return error;
 		this.report(error);
@@ -395,6 +473,14 @@ class ErrorControl {
 		return this.default.guard(...args);
 	}
 
+	static guardAsync(...args) {
+		return this.default.guardAsync(...args);
+	}
+
+	static contain(...args) {
+		return this.default.contain(...args);
+	}
+
 	static report(...args) {
 		return this.default.report(...args);
 	}
@@ -412,6 +498,7 @@ Object.assign(ErrorControl.prototype, ErrorControlFiltersMixin);
 Object.assign(ErrorControl.prototype, ErrorControlMakeMixin);
 Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
 Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
+Object.assign(ErrorControl.prototype, ErrorControlContainMixin);
 Object.assign(ErrorControl.prototype, ErrorControlHandleMixin);
 
 // This is taken from TypeScript compiler output, because it works quite reliably.

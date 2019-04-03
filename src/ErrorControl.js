@@ -3,6 +3,7 @@ import ErrorControlFiltersMixin from "./ErrorControlFiltersMixin";
 import ErrorControlMakeMixin from "./ErrorControlMakeMixin";
 import ErrorControlReportMixin from "./ErrorControlReportMixin";
 import ErrorControlGuardMixin from "./ErrorControlGuardMixin";
+import ErrorControlContainMixin from "./ErrorControlContainMixin";
 import ErrorControlHandleMixin from "./ErrorControlHandleMixin";
 
 // import HttpErrors from "./HttpErrors";
@@ -24,8 +25,12 @@ export default class ErrorControl {
 		return this._default;
 	}
 
-	manage(aError) {
-		let error = this.filter(aError);
+	isPromise(obj) {
+		return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+	}
+
+	manage(aError,aPostFunction=null) {
+		let error = this.filter(aError,aPostFunction);
 		if (!error)
 			return error;
 		this.report(error);
@@ -45,6 +50,14 @@ export default class ErrorControl {
 		return this.default.guard(...args);
 	}
 
+	static guardAsync(...args) {
+		return this.default.guardAsync(...args);
+	}
+
+	static contain(...args) {
+		return this.default.contain(...args);
+	}
+
 	static report(...args) {
 		return this.default.report(...args);
 	}
@@ -62,6 +75,7 @@ Object.assign(ErrorControl.prototype, ErrorControlFiltersMixin);
 Object.assign(ErrorControl.prototype, ErrorControlMakeMixin);
 Object.assign(ErrorControl.prototype, ErrorControlReportMixin);
 Object.assign(ErrorControl.prototype, ErrorControlGuardMixin);
+Object.assign(ErrorControl.prototype, ErrorControlContainMixin);
 Object.assign(ErrorControl.prototype, ErrorControlHandleMixin);
 
 export { ErrorControl /*, StandardException, UserError, FrontEndError, UserErrors, HttpErrors*/ }
